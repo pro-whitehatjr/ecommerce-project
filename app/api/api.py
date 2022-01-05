@@ -60,6 +60,6 @@ def get_customer():
         }), 200
     except Exception as e:
         return jsonify({
-            "status", "error",
+            "status": "error",
             "message": str(e)
         }), 400
