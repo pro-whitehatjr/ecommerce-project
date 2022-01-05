@@ -34,3 +34,32 @@ def execute():
             "status": "error",
             "message": str(e)
         }), 400
+
+@api.route("/get-customer")
+def get_customer():
+    try:
+        customer_id = request.args.get("id")
+        query = f"select * from customers where id={customer_id}"
+        customer = db.engine.execute(query).first()
+        return jsonify({
+            "status": "success",
+            "data": {
+                "first_name": customer["first_name"],
+                "last_name": customer["last_name"],
+                "company_name": customer["company_name"],
+                "address": customer["address"],
+                "city": customer["city"],
+                "county": customer["county"],
+                "state": customer["state"],
+                "zip_code": customer["zip_code"],
+                "phone_1": customer["phone_1"],
+                "phone_2": customer["phone_2"],
+                "email": customer["email"],
+                "web": customer["web"]
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status", "error",
+            "message": str(e)
+        }), 400
